@@ -58,6 +58,7 @@
               'js/plugins/awe-standard-object_clicked_or_focused.js'+d, // object click/tap handling plugin
               'awe.gyro.js'+d, // basic gyro handling
               'awe.mouse.js'+d, // basic mouse handling
+              'js/awe-poi-position-helper.js'+d
             ],
             success: function() { 
               // setup and paint the scene
@@ -106,8 +107,23 @@
 			        awe.pois.add({ id:'south_west', position: { x:-200, y:0, z:-200 } });
 			        awe.pois.add({ id:'west', position: { x:-200, y:0, z:0 } });
 			        awe.pois.add({ id:'north_west', position: { x:-200, y:0, z:200 } });
-			
+                    
+                    awe.pois.add({ id:'dk', position: { x:17563.773750123205, y:0, z:56843.89251789216 }, visible: true });
+                    /*
+                    awe.pois.add({ 
+                        id: 'iceberg', 
+                        position: { x: 0, y: -2, z: 0 },
+                        scale: { x: 2, y: 2, z: 2 },
+                    });
 
+                    awe.projections.add({ 
+                        id:'iceberg', 
+                        geometry: {shape: 'plane'},
+                        material:{ type: 'phong', color: 0xFFFFFF }, 
+                        texture: { path: 'img/iceberg.png' },
+                    }, { poi_id: 'iceberg' });
+                    */
+                    /*
                     awe.pois.add({ 
                         id: 'duck', 
                         position: { x: 0, y: -2, z: 0 },
@@ -124,8 +140,37 @@
                         position: { x: 0, y: 0, z: 0 },
                         rotation: { x: 0, y: 180, z: 0 },
                     }, { poi_id: 'duck' });
+                    */
+                    // add projections to each of the pois
 
-			        // add projections to each of the pois
+                    awe.pois.add({ id:'longbeach', gps: { lat:33.7617624, lng:-118.1973547, height:0 } });
+                    
+
+                    awe.projections.add(
+                        {                            
+                        id: 'north_poi',
+                        geometry: {
+                            shape: 'cube',
+                            x: 2,
+                            y: 2,
+                            z: 2
+                        },
+                        rotation: {
+                            x: 30,
+                            y: 30,
+                            z: 0
+                        },
+                        material: {
+                            type: 'basic',
+                            color: 0x0000ff, //blue
+                            wireframe: false
+                        },
+                        }, {
+                        poi_id: 'longbeach' //the id of a POI
+                        }
+                    );
+                    
+/*
 			        awe.projections.add({ 
 			          id:'n', 
 			          geometry:{ shape:'cube', x:50, y:50, z:50 }, 
@@ -201,7 +246,7 @@
 			            color:0xCCCCCC, 
 			          },
 			        }, { poi_id: 'north_west' });
-			
+			*/
             },
           },
           { // else create a fallback
