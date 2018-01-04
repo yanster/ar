@@ -143,9 +143,31 @@
                     */
                     // add projections to each of the pois
 
-                    awe.pois.add({ id:'longbeach', gps: { lat:33.7617624, lng:-118.1973547, height:0 } });
-                    
+                    awe.pois.add({ id:'longbeach', position: { x:33.7617624*100000, y:-118.1973547*100000 } });
 
+                    awe.projections.add({ 
+			          id:'se', 
+			          geometry:{ shape:'sphere', radius:10 }, 
+			          material:{ 
+			            type: 'phong',
+			            color:0xCCCCCC, 
+			          },
+                    }, { poi_id: 'longbeach' });
+                    
+                    /*
+                    awe.projections.add({ 
+                        id: 'iceberg', 
+                        geometry: {
+                            path: 'Iceberg 2 100500 3.obj'
+                        },
+                        material: {
+                            path: 'Iceberg 2 100500 3.mtl' // optional and only applied if this .mtl if referenced within the .obj
+                        },
+                        position: { x: 0, y: 0, z: 0 },
+                        rotation: { x: 0, y: 180, z: 0 },
+                    }, { poi_id: 'longbeach' });
+*/   
+/*
                     awe.projections.add(
                         {                            
                         id: 'north_poi',
@@ -163,13 +185,13 @@
                         material: {
                             type: 'basic',
                             color: 0x0000ff, //blue
-                            wireframe: false
+                            wireframe: true
                         },
                         }, {
                         poi_id: 'longbeach' //the id of a POI
                         }
                     );
-                    
+  */               
 /*
 			        awe.projections.add({ 
 			          id:'n', 
@@ -246,7 +268,29 @@
 			            color:0xCCCCCC, 
 			          },
 			        }, { poi_id: 'north_west' });
-			*/
+            */
+            navigator.geolocation.getCurrentPosition( function ( position ) {
+    alert( 'yay!' );    
+},
+function ( error ) {
+    alert( 'boo! error: ' + error.message );
+} );
+
+            console.log(position.coords.latitude);
+            awe.povs.update({
+                    data:{
+                    position:{
+                        x: position.coords.latitude*100000,
+                        y: position.coords.longitude*100000,
+                    }
+                    },
+                    where:{
+                    id:"default"
+                    }
+                });
+                
+                awe.scene_needs_rendering = 1;
+
             },
           },
           { // else create a fallback
