@@ -24,6 +24,16 @@
 <script type="text/javascript" src="js/awe-v8.js"></script>
 <script type="text/javascript" src="js/awe-loader.js"></script>
 <script type="text/javascript">
+
+    var position;
+
+    navigator.geolocation.getCurrentPosition( function ( location ) {
+        position = location;
+    },
+    function ( error ) {
+        alert( 'boo! error: ' + error.message );
+    } );
+
   window.addEventListener('load', function() {
 
 
@@ -269,14 +279,9 @@
 			          },
 			        }, { poi_id: 'north_west' });
             */
-            navigator.geolocation.getCurrentPosition( function ( position ) {
-    alert( 'yay!' );    
-},
-function ( error ) {
-    alert( 'boo! error: ' + error.message );
-} );
-
-            console.log(position.coords.latitude);
+ 
+/*
+            console.log(position);
             awe.povs.update({
                     data:{
                     position:{
@@ -288,7 +293,10 @@ function ( error ) {
                     id:"default"
                     }
                 });
-                
+  */
+  console.log(position);
+            awe.povs.add({ id:'pov', position: { x:position.coords.latitude*100000, y:position.coords.longitude*100000, z:193 } });
+
                 awe.scene_needs_rendering = 1;
 
             },
